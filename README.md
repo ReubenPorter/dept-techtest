@@ -41,6 +41,6 @@ Disadvantages:
 
 I have only added a few basic tests just as a demonstration really. If I was to spend more time I'd include some more RTL tests for the `SearchInput` component, as well as setting up Cypress and have some end to end tests, e.g. Using the search, adding a card, removing a card.
 
-In a larger project I'd usually include Lighthouse CI for accessibility, performance testing etc. I'm using Next js ESLint config which includes the ESLint jsx-a11y plugin which has helped bring light to any accessibility errors during development.
+In a larger project I'd usually include Lighthouse CI for accessibility, performance testing etc. I'm using Next js ESLint config which includes the ESLint jsx-a11y plugin which has helped bring to light to any accessibility errors during development.
 
 I've tried to keep to the breif as much as possible, but would have probably preferred if the search results box didn't cause a layout shift - this would probably prompt a discussion with the UX team / client (in a real life scenario).

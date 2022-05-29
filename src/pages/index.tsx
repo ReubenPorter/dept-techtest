@@ -9,6 +9,7 @@ import { api } from "../lib/api";
 const Home: NextPage = () => {
 	const [locations, setLocations] = useState<Location[]>([]);
 	const [selectedLocations, setSelectedLocations] = useState<Location[]>([]);
+	const [error, setError] = useState(false);
 
 	useEffect(() => {
 		const getAllLocations = async () => {
@@ -22,7 +23,11 @@ const Home: NextPage = () => {
 					"locations?country_id=GB&limit=2000"
 				);
 				setLocations(res.data.results);
-			} catch (err) {}
+			} catch (err) {
+				// Very basic error handling. Normally would consider the different types of errors the API could return and
+				// handle them appropiately.
+				setError(true);
+			}
 		};
 		getAllLocations();
 	}, []);
@@ -40,10 +45,16 @@ const Home: NextPage = () => {
 			</p>
 
 			<div className="flex justify-center">
-				<SearchInput
-					locations={locations}
-					setSelectedLocationHandler={setSelectedLocations}
-				/>
+				{!error ? (
+					<SearchInput
+						locations={locations}
+						setSelectedLocationHandler={setSelectedLocations}
+					/>
+				) : (
+					// Not pretty but I think it's better than rendering the Search Input without any locations - at least this
+					// is clear to the user that an error has occurred.
+					<p>An error has occured retrieving location data.</p>
+				)}
 			</div>
 
 			<ul className="grid auto-cols-auto grid-cols-1 gap-6 md:grid-cols-2 md:gap-12 lg:mx-36">

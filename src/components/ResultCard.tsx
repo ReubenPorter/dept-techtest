@@ -40,7 +40,8 @@ const ResultCard: FC<Props> = ({ location, setSelectedLocationHandler }) => {
 				in {location?.city || "N/A"}, United Kingdom
 			</p>
 			{/* The data isn't really formalised and consistent on the API, however I am sticking to the brief and only displaying
-			the specified values as displayed in the design. If no value is found, display 'N/A' */}
+			the specified values as displayed in the design. If no value is found, display 'N/A'. I opted to use 'lastValue' as the brief
+			asks for value at the time of retrieval, rather than using the 'average'. */}
 			<p className="font-semibold text-black">
 				Values: PM25:{" "}
 				{location.parameters.find((param) => param.parameter === "pm25")

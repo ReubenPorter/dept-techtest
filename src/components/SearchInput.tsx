@@ -106,6 +106,8 @@ const SearchInput: FC<Props> = ({ locations, setSelectedLocationHandler }) => {
 							className="-mt-5 rounded-b-xl bg-white pt-8 pb-4"
 						>
 							<ul
+								data-testid="search-results-container"
+								aria-label="Results list"
 								className="max-h-[285px] w-full space-y-0.5 overflow-x-hidden overflow-y-scroll rounded-b-lg bg-white"
 								tabIndex={-1}
 								role="listbox"

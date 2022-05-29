@@ -1,3 +1,5 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
 	content: [
 		"./src/pages/**/*.{js,ts,jsx,tsx}",
@@ -5,7 +7,7 @@ module.exports = {
 	],
 	theme: {
 		fontFamily: {
-			sans: ["Open Sans"],
+			sans: ["Open Sans", ...defaultTheme.fontFamily.sans],
 		},
 		extend: {
 			colors: {

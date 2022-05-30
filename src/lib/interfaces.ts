@@ -1,12 +1,3 @@
-export interface City {
-    country: string,
-    city: string,
-    locations: number,
-    firstUpdated: string,
-    lastUpdated: string,
-    parameters: any
-}
-
 export interface Location {
     id: number;
     city?: string;

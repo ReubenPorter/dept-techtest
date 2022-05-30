@@ -14,10 +14,15 @@ import { Location } from "@interfaces";
 
 interface Props {
 	locations: Location[];
+	selectedLocations: Location[];
 	setSelectedLocationHandler: Dispatch<SetStateAction<Location[]>>;
 }
 
-const SearchInput: FC<Props> = ({ locations, setSelectedLocationHandler }) => {
+const SearchInput: FC<Props> = ({
+	locations,
+	selectedLocations,
+	setSelectedLocationHandler,
+}) => {
 	const [expandSearch, setExpandSearch] = useState(false);
 	const [searchValue, setSearchValue] = useState("");
 	const [filteredLocations, setFilteredLocations] = useState(locations);
@@ -46,15 +51,22 @@ const SearchInput: FC<Props> = ({ locations, setSelectedLocationHandler }) => {
 
 	const selectLocation = useCallback(
 		(location: Location) => {
-			// Append the selected location to the selected locations state.
-			setSelectedLocationHandler((prevState) => [...prevState, location]);
+			// Do not allow the user to re-select the same location.
+			// Better UX may be to remove it from the list altogether if already selected maybe?
+			if (!selectedLocations.includes(location)) {
+				// Append the selected location to the selected locations state.
+				setSelectedLocationHandler((prevState) => [
+					...prevState,
+					location,
+				]);
+			}
 			// UX choice here, closing the search input after selecting a location.
 			setExpandSearch(false);
 			// Reset the filtered locations state to the default 'all' locations. So all locations are shown again when refocussing the search input.
 			// UX choice, clear the search value after a location has been selected.
 			resetFilteredLocations();
 		},
-		[setSelectedLocationHandler, resetFilteredLocations]
+		[setSelectedLocationHandler, resetFilteredLocations, selectedLocations]
 	);
 
 	// The search input may render before all of the locations have been returned from the API. Therefore this
@@ -72,7 +84,7 @@ const SearchInput: FC<Props> = ({ locations, setSelectedLocationHandler }) => {
 				resetFilteredLocations();
 			}}
 		>
-			<div className="relative mb-12 w-full md:mb-20 md:w-[400px]">
+			<div className="relative w-full md:w-[400px]">
 				<div className="relative z-10">
 					<label htmlFor="search" className="sr-only">
 						Search for a city
@@ -103,7 +115,7 @@ const SearchInput: FC<Props> = ({ locations, setSelectedLocationHandler }) => {
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							exit={{ opacity: 0 }}
-							className="-mt-5 rounded-b-xl bg-white pt-8 pb-4"
+							className="-mt-5 overflow-hidden rounded-b-xl bg-white pt-8 pb-4"
 						>
 							<ul
 								data-testid="search-results-container"
@@ -118,6 +130,8 @@ const SearchInput: FC<Props> = ({ locations, setSelectedLocationHandler }) => {
 										className="cursor-pointer px-4 py-2 text-black outline-none hover:bg-gray-200 focus:bg-gray-200"
 										tabIndex={0}
 										onClick={() => selectLocation(location)}
+										aria-label="Select this location"
+										role="button"
 										onKeyDown={(e) => {
 											switch (e.key) {
 												case " ":

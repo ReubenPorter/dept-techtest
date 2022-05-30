@@ -48,6 +48,7 @@ const Home: NextPage = () => {
 				{!error ? (
 					<SearchInput
 						locations={locations}
+						selectedLocations={selectedLocations}
 						setSelectedLocationHandler={setSelectedLocations}
 					/>
 				) : (
@@ -57,10 +58,10 @@ const Home: NextPage = () => {
 				)}
 			</div>
 
-			<ul className="grid auto-cols-auto grid-cols-1 gap-6 md:grid-cols-2 md:gap-12 lg:mx-36">
-				<AnimatePresence>
-					{selectedLocations.length &&
-						selectedLocations.map((selectedLocation, index) => (
+			{selectedLocations && selectedLocations.length ? (
+				<ul className="mt-12 grid auto-cols-auto grid-cols-1 gap-6 md:mt-20 md:grid-cols-2 md:gap-12 lg:mx-36">
+					<AnimatePresence>
+						{selectedLocations.map((selectedLocation, index) => (
 							<motion.li
 								key={index}
 								initial={{ opacity: 0 }}
@@ -75,8 +76,9 @@ const Home: NextPage = () => {
 								/>
 							</motion.li>
 						))}
-				</AnimatePresence>
-			</ul>
+					</AnimatePresence>
+				</ul>
+			) : null}
 		</div>
 	);
 };

@@ -11,8 +11,8 @@ module.exports = {
 		},
 		extend: {
 			colors: {
-				"dept-purple": "#723daf",
-				"dept-blue": "#4d6caf",
+				"dept-purple": "#7837af",
+				"dept-blue": "#3f7bae",
 			},
 		},
 	},

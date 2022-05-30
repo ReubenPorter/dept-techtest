@@ -34,8 +34,8 @@ const ResultCard: FC<Props> = ({ location, setSelectedLocationHandler }) => {
 			<h2 className="mb-1.5 text-lg font-bold text-dept-purple md:text-xl">
 				{location.name}
 			</h2>
-			{/* We can hardcode United Kindom as we are only searching for locations within GB. Not all locations contain city data so shoe
-			N/A if this is the case */}
+			{/* Not all locations contain city data so show N/A if this is the case */}
+			{/* API country code GB is classed as United Kingdom, as shown in the designs */}
 			<p className="mb-2 text-gray-900">
 				in {location?.city || "N/A"}, United Kingdom
 			</p>
